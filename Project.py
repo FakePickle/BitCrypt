@@ -29,6 +29,20 @@ class Encrypt:
         second_decrypt = self.crypto1.decrypt(first_decrypt)#second decryption
         return second_decrypt
 
+class Connect:
+    def __init__(self):
+        self.ip_addr_list = ['192.168.60.68','192.168.61.96']
+        self.ip_bind = '192.168.60.51'
+        self.port_bind = '9999'
+        self.server = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+    
+    def connect(self):
+        ip_bind = random.choice(self.ip_bind)
+        self.server.bind((ip_bind, self.port_bind))
+        self.server.listen(15)
+        conn, addr = self.server.accept()
+        
+
 user_input = input("Enter any word : ")
 user_input = bytes(user_input, 'utf-8')
 x = Encrypt(user_input)
