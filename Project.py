@@ -2,11 +2,12 @@ from cryptography.fernet import Fernet
 import curses
 import os
 import time
-import random
 import pickle
+import sqlite3
+import socket
 
 
-#----------------------------------------------------------------BASE ENCRYPTION---------------------------------------------------------------------------------
+#----------------------------------------------------------------BASE ENCRYPTION AND DECRYPTION-------------------------------------------------------------------------
 
 class Encrypt:
     def __init__(self,user_input):
@@ -16,14 +17,16 @@ class Encrypt:
         self.crypto2 = Fernet(self.key2)
         self.word = user_input
     
+    #Encrypting
     def encrypt(self):
-        first_encrypt = self.crypto1.encrypt(self.word)
-        second_encrypt = self.crypto2.encrypt(first_encrypt)
+        first_encrypt = self.crypto1.encrypt(self.word)#first encryption
+        second_encrypt = self.crypto2.encrypt(first_encrypt)#second encryption
         return second_encrypt
     
+    #Decrypting
     def decrypt(self,encrypted_key):
-        first_decrypt = self.crypto2.decrypt(encrypted_key)
-        second_decrypt = self.crypto1.decrypt(first_decrypt)
+        first_decrypt = self.crypto2.decrypt(encrypted_key)#first decryption
+        second_decrypt = self.crypto1.decrypt(first_decrypt)#second decryption
         return second_decrypt
 
 user_input = input("Enter any word : ")
