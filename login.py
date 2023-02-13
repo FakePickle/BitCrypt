@@ -1,5 +1,8 @@
 import sqlite3
 
+conn = sqlite3.connect('UserDB.db')
+cursor = conn.cursor()
+
 class login:
     def __init__(self,emai_id,id,pwd,confirm_pwd):
         self.mail_id = emai_id
@@ -8,7 +11,7 @@ class login:
         self.confirm_pwd = confirm_pwd
     
     def signup(self):
-        cursor.execute('SELECT rowid FRoM test WHERE EMAIL ID = ?',(self.mail_id,))
+        cursor.execute('SELECT rowid FROM test WHERE EMAIL_ID = ?',(self.mail_id,))
         res = cursor.fetchall()
         if not(len(res)==0):
             print('A user already exists with that email id')
@@ -26,7 +29,7 @@ class login:
             else:
                 if self.pwd == self.confirm_pwd:
                     params = (self.mail_id,self.user_name,self.pwd,self.confirm_pwd)
-                    cursor.execute('INSERT INTO test (EMAIL ID, USERNAME, PASSWORD, CONFIRM PASSWORD) VALUES(?,?)', params);
+                    cursor.execute('INSERT INTO test (EMAIL_ID, USERNAME, PASSWORD, CONFIRM_PASSWORD) VALUES(?,?,?,?)', params);
                     print('You have Succesfully Signed up for this program!!')
                 else:
                     print('Passwords dont match!')
@@ -65,8 +68,3 @@ class login:
                     login(input('Enter email id : '),input('Enter user name : '),input('Enter password : '),input('Confirm your password : ')).Login()
                 elif user_input == 'sign up':
                     login(input('Enter email id : '),input('Enter user name : '),input('Enter password : '),input('Confirm your password : ')).signup()
-
-if __name__ == '__main__':
-    conn = sqlite3.connect('UserDB.db')
-    cursor = conn.cursor()
-    login(input('Enter email id : '),input('Enter user name : '),input('Enter password : '),input('Confirm your password : ')).Login()
