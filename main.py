@@ -21,12 +21,11 @@ class magic:
         pwd = temp_list[1]
         with open('key.key','rb') as inline:
             data = inline.read().splitlines()
-        key1 = data[0]
-        key2 = data[1]
+        key1,key2 = data[0],data[1]
         decryption = encrypt_decrypt(key1,key2)
         mail = decryption.decrypt_file(email)
         password = decryption.decrypt_file(pwd)
-        return mail,password
+        return str(mail),str(password)
 
 class File_transfer:
     def __init__(self):
@@ -56,4 +55,5 @@ class File_transfer:
         else:
             print('Program killed !')
 
-File_transfer().main_time()
+if __name__ == '__main__':
+    File_transfer().main_time()
