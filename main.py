@@ -37,15 +37,15 @@ class File_transfer:
         while run:
             role = 'host' if time.time() % 30 < 15 else 'client'
             if role == 'host':
-                user_input_se = input()
-                if user_input_se == 'recv': run = False
                 self.file.server_usr()
+                print('HOST')
             elif role == 'client':
                 self.file.client_usr()
                 user_input_cl = input()
+                print('CLIENT')
                 if user_input_cl == 'recv': run = False
-        time.sleep(15)
-        if user_input_cl == 'recv' or user_input_se == 'recv':
+            time.sleep(15)
+        if user_input_cl == 'recv':
             magic(input('Enter user name : '),input('Enter website : ')).main()
         if input() == 'kill':
             run = False
