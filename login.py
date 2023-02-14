@@ -1,9 +1,10 @@
 import sqlite3
+import getpass
 
 conn = sqlite3.connect('UserDB.db')
 cursor = conn.cursor()
 
-class login:
+class signup:
     def __init__(self,emai_id,id,pwd,confirm_pwd):
         self.mail_id = emai_id
         self.user_name = id
@@ -17,25 +18,34 @@ class login:
             print('A user already exists with that email id')
             user_input = input('Do you wish to sign up with different email id or login : ')
             if user_input == 'login':
-                login(input('Enter email id : '),input('Enter user name : '),input('Enter password : '),input('Confirm your password : ')).Login()
+                res,uname = login(input('Enter user name : '),getpass.getpass('Enter password : ')).Login()
+                return res,uname
             elif user_input == 'Sign up':
-                login(input('Enter email id : '),input('Enter user name : '),input('Enter password : '),input('Confirm your password : ')).signup()
+                res,uname = signup(input('Enter email id : '),input('Enter user name : '),getpass.getpass('Enter password : '),getpass.getpass('Confirm your password : ')).signup()
+                return res,uname
         else:
             cursor.execute('SELECT rowid FROM test WHERE USERNAME = ?',(self.user_name,))
             res = cursor.fetchall()
             if not(len(res) == 0):
                 print('User already exists with that username please enter different username')
-                login(input('Enter email id : '),input('Enter user name : '),input('Enter password : '),input('Confirm your password : ')).signup()
+                res,uname = signup(input('Enter email id : '),input('Enter user name : '),getpass.getpass('Enter password : '),getpass.getpass('Confirm your password : ')).signup()
+                return res,uname
             else:
                 if self.pwd == self.confirm_pwd:
                     params = (self.mail_id,self.user_name,self.pwd,self.confirm_pwd)
                     cursor.execute('INSERT INTO test (EMAIL_ID, USERNAME, PASSWORD, CONFIRM_PASSWORD) VALUES(?,?,?,?)', params);
-                    print('You have Succesfully Signed up for this program!!')
+                    return 'You have signed up for this program',self.user_name
                 else:
                     print('Passwords dont match!')
-                    login(input('Enter email id : '),input('Enter user name : '),input('Enter password : '),input('Confirm your password : ')).signup()
+                    res,uname = signup(input('Enter email id : '),input('Enter user name : '),getpass.getpass('Enter password : '),getpass.getpass('Confirm your password : ')).signup()
+                    return res,uname
         conn.commit()
         conn.close()
+    
+class login:
+    def __init__(self,usr_name,pwd):
+        self.user_name = usr_name
+        self.pwd = pwd
     
     def Login(self):
         cursor.execute('SELECT rowid FROM test WHERE USERNAME = ?',(self.user_name,))
@@ -44,11 +54,11 @@ class login:
             cursor.execute('SELECT rowid FROM test WHERE PASSWORD = ?',(self.pwd,))
             res = cursor.fetchall()
             if not(len(res)==0):
-                print('Succesfully Logged In')
-                conn.close()
+                return 'Succesfully Logged In',self.user_name
             else:
                 print('Username or password is incorrect')
-                login(input('Enter email id : '),input('Enter user name : '),input('Enter password : '),input('Confirm your password : ')).Login()
+                res,uname = login(input('Enter user name : '),getpass.getpass('Enter password : ')).Login()
+                return res,uname
         else:
             cursor.execute('SELECT rowid FROM test WHERE PASSWORD = ?',(self.pwd,))
             res = cursor.fetchall()
@@ -56,15 +66,18 @@ class login:
                 cursor.execute('SELECT rowid FROM test WHERE USERNAME = ?',(self.user_name,))
                 res = cursor.fetchall()
                 if not(len(res)==0):
-                    print('Succesfully Logged In')
-                    conn.close()
+                    return 'Succesfully Logged In',self.user_name
                 else:
                     print('Username or password is incorrect')
-                    login(input('Enter email id : '),input('Enter user name : '),input('Enter password : '),input('Confirm your password : ')).Login()
+                    res,uname = login(input('Enter user name : '),getpass.getpass('Enter password : ')).Login()
+                    return res,uname
             else:
                 print('User does not exist')
                 user_input = input('Do you wish to make new account or try to sign in again? ')
                 if user_input == 'login':
-                    login(input('Enter email id : '),input('Enter user name : '),input('Enter password : '),input('Confirm your password : ')).Login()
+                    res,uname = login(input('Enter user name : '),getpass.getpass('Enter password : ')).Login()
+                    return res,uname
                 elif user_input == 'sign up':
-                    login(input('Enter email id : '),input('Enter user name : '),input('Enter password : '),input('Confirm your password : ')).signup()
+                    res,uname = signup(input('Enter email id : '),input('Enter user name : '),getpass.getpass('Enter password : '),getpass.getpass('Confirm your password : ')).signup()
+                    return res,uname
+        conn.close()
