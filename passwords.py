@@ -1,17 +1,21 @@
-from encrypt_decrypt import encrypt_decrypt
+from encrypt_decrypt import encrypt_decrypt,keys
 import getpass
 from login import login,signup
 import secrets
 import string
 
+def key():
+    key = keys()
+    key.key_write()
 
 def generate_password(length = 16):
     alphabot = string.ascii_letters + string.digits + string.punctuation
     return ''.join(secrets.choice(alphabot) for i in range(length))
 
 def main():
-    encryption = encrypt_decrypt()
-    encryption.key_write()
+    with open('key.key','rb') as inline:
+        keys = inline.read().splitlines()
+    encryption = encrypt_decrypt(keys[0],keys[1])
     user_input_ch = input('Do you want to login or signup : ')
     if user_input_ch == 'login':
         user_login = login(input('Enter user name : '),getpass.getpass('Enter your password : ','*'))
@@ -29,8 +33,13 @@ def main():
             user_input_mail = input('Enter mail id : ')
             user_input_website = input('Enter the password storing is for which website : ')
             user_input_password = getpass.getpass('Enter your password : ')
-    with open('passwords.txt') as inline:
-        pass_dict = eval(inline.read())
+    try:
+        with open('passwords.txt') as inline:
+            pass_dict = eval(inline.read())
+            if pass_dict == '':
+                pass_dict = {}
+    except:
+        pass_dict = {}
     if pass_dict == {}:
         pass_dict[user_name] = {
             user_input_website : [encryption.encrypt_file(user_input_mail),encryption.encrypt_file(user_input_password)]
@@ -53,4 +62,3 @@ def main():
                     break
     with open('passwords.txt','w') as outline:
         outline.write(str(pass_dict))
-main()
