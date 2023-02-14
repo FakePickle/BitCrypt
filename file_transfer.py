@@ -21,6 +21,7 @@ class file_Transfer:
             with open('passwords.txt', 'rb') as f, open('key.key','rb') as inline:
                 connection.sendall(f.read())
                 connection.sendall(inline.read())
+                print('Files Sent')
         finally:
             # Clean up the connection
             connection.close()
@@ -34,4 +35,5 @@ class file_Transfer:
         with open('passwords.txt','wb') as f, open('key.key','wb') as outline:
             f.write(client.recv(self.format))
             outline.write(client.recv(self.format))
+            print('Files received')
         client.close()
