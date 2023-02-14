@@ -8,7 +8,7 @@ class keys:
     def key_write(self):
         f = open('key.key','wb')
         f.write(self.key1)
-        f.write('\n')
+        f.write(b'\n')
         f.write(self.key2)
         f.close()
 

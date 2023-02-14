@@ -9,12 +9,21 @@ class magic:
         self.web = website
     
     def main(self):
+        key()
+        main()
         inline = open('passwords.txt')
         inline = eval(inline.read())
-        for values in inline[self.usr_name]:
-            for v in values[self.web]:
-                temp_list = v
+        for keys,values in inline.items():
+            for k,v in values.items():
+                if k == self.web:
+                    temp_list = v
         email = temp_list[0]
         pwd = temp_list[1]
-        keys = open('key.key')
-        
+        with open('key.key','rb') as inline:
+            data = inline.read().splitlines()
+        key1 = data[0]
+        key2 = data[1]
+        decryption = encrypt_decrypt(key1,key2)
+        mail = decryption.decrypt_file(email)
+        password = decryption.decrypt_file(pwd)
+        return mail,password
