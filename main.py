@@ -55,3 +55,5 @@ class File_transfer:
             File_transfer().main_time()
         else:
             print('Program killed !')
+
+File_transfer().main_time()
