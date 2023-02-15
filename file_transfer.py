@@ -4,7 +4,7 @@ class file_Transfer:
     def __init__(self):
         self.bind_ip = socket.gethostbyname(socket.gethostname())
         self.bind_port = 9999
-        self.size = 2048
+        self.size = 4096
         self.format = 'utf-8'
     
     def server_usr(self):
