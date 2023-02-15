@@ -1,12 +1,20 @@
 from file_transfer import file_Transfer
 import time
-from passwords import main
+from passwords import main,key
 from encrypt_decrypt import encrypt_decrypt
 
 class magic:
     def __init__(self,user_name_input,website):
         self.usr_name = user_name_input
         self.web = website
+
+    def write_key():
+        try:
+            with open('key.key','rb') as inline:
+                if len(inline.read().splitlines())==0:
+                    key()
+        except:
+            key()
 
     def search_passwords(self):
         inline = open('passwords.txt')
@@ -46,7 +54,9 @@ class File_transfer:
                 time.sleep(15)
                 if user_input_cl == 'recv': run = False
         if user_input_cl == 'recv':
-            magic(input('Enter user name : '),input('Enter website : ')).search_passwords()
+            sch = magic(input('Enter user name : '),input('Enter website : '))
+            sch.write_key()
+            sch.search_passwords()
         if input() == 'kill':
             run = False
         else:
