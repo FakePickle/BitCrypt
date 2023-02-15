@@ -8,17 +8,6 @@ class file_Transfer:
         self.format = 'utf-8'
     
     def server_usr(self):
-<<<<<<< HEAD
-        server = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-        server.bind((self.bind_ip,self.bind_port))
-        server.listen()
-        conn,addr = server.accept()
-        inline = open('file1.txt')
-        data = inline.read()
-        conn.send(data.encode(self.format))
-        inline.close()
-        server.close()
-=======
         host_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         host_sock.bind((self.bind_ip, self.bind_port))
         host_sock.listen()
@@ -33,7 +22,6 @@ class file_Transfer:
         finally:
             connection.close()
         host_sock.close()
->>>>>>> 00bcd119da4b038dc39de453b91e1c0da36c791c
     
     def client_usr(self):
         client = socket.socket(socket.AF_INET,socket.SOCK_STREAM)

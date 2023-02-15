@@ -44,11 +44,7 @@ class File_transfer:
                 if user_input_cl == 'recv': run = False
             time.sleep(15)
         if user_input_cl == 'recv':
-<<<<<<< HEAD
-            magic(input('Enter user name : '),input('Enter website : ')).main()
-=======
             magic(input('Enter user name : '),input('Enter website : ')).search_passwords()
->>>>>>> 00bcd119da4b038dc39de453b91e1c0da36c791c
         if input() == 'kill':
             run = False
         else:
