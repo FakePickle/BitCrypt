@@ -7,7 +7,7 @@ class magic:
     def __init__(self,user_name_input,website):
         self.usr_name = user_name_input
         self.web = website
-    
+
     def search_passwords(self):
         inline = open('passwords.txt')
         inline = eval(inline.read())
@@ -57,5 +57,13 @@ class File_transfer:
             print('Program killed !')
 
 if __name__ == '__main__':
-    File_transfer().main_time()
+    while True:
+        user_input = input('Do you want to add or search password? ')
+        if user_input == 'add password':
+            main()
+        elif user_input == 'search password':
+            File_transfer().main_time()
+        else:
+            print('Invalid Input')
+            break
     # print(magic(input('Enter user name '),input('Enter platform')).search_passwords())
