@@ -1,6 +1,6 @@
 from file_transfer import file_Transfer
 import time
-from passwords import main,key
+from passwords import main
 from encrypt_decrypt import encrypt_decrypt
 
 class magic:
