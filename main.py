@@ -2,6 +2,8 @@ from file_transfer import file_Transfer
 import time
 from passwords import main,key
 from encrypt_decrypt import encrypt_decrypt
+import getpass
+from login import login,signup
 
 class magic:
     def __init__(self,user_name_input,website):
@@ -65,4 +67,20 @@ class File_transfer:
             print('Program killed !')
 
 if __name__ == '__main__':
-    print(magic(input('Enter user name '),input('Enter platform')).search_passwords())
+    user_input_ch = input('Do you want to login or signup : ')
+    if user_input_ch == 'login':
+        user_login = login(input('Enter user name : '),getpass.getpass('Enter your password : ','*'))
+        res,user_name = user_login.Login()
+    elif user_input_ch == 'signup':
+        user_signup = signup(input('Enter your email id : '),input('Enter your username : '),getpass.getpass('Enter your password : ','*'),getpass.getpass('Confirm your password','*'))
+        res,user_name = user_signup.signup()
+    if res == 'Succesfully Logged In' or res == 'You have signed up for this program':
+        while True:
+            user_input = input('Do you want to search a password or add a password? ')
+            if user_input == 'add password':
+                main(user_name)
+            elif user_input == 'search password':
+                print(magic(input('Enter user name : '),input('Enter website : ')).search_passwords())
+            else:
+                print('Invalid Input')
+                break
