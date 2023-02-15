@@ -16,9 +16,6 @@ class file_Transfer:
         data = inline.read()
         conn.send(data.encode(self.format))
         inline.close()
-        inline = open('key.key')
-        data = inline.read()
-        conn.send(data.encode(self.format))
         server.close()
     
     def client_usr(self):
