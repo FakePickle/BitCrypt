@@ -40,19 +40,17 @@ class File_transfer:
     
     def main_time(self):
         run = True
-        start_time = time.time()
         while run:
-            role = 'host' if (time.time() - start_time <= 15) else 'client'
+            role = 'client' if time.time() % 30 < 15 else 'host'
             if role == 'host':
                 self.file.server_usr()
                 print('HOST')
-                time.sleep(15)
             elif role == 'client':
                 self.file.client_usr()
                 user_input_cl = input()
                 print('CLIENT')
-                time.sleep(15)
                 if user_input_cl == 'recv': run = False
+            time.sleep(15)
         if user_input_cl == 'recv':
             sch = magic(input('Enter user name : '),input('Enter website : '))
             sch.write_key()
@@ -67,13 +65,4 @@ class File_transfer:
             print('Program killed !')
 
 if __name__ == '__main__':
-    while True:
-        user_input = input('Do you want to add or search password? ')
-        if user_input == 'add password':
-            main()
-        elif user_input == 'search password':
-            File_transfer().main_time()
-        else:
-            print('Invalid Input')
-            break
-    # print(magic(input('Enter user name '),input('Enter platform')).search_passwords())
+    print(magic(input('Enter user name '),input('Enter platform')).search_passwords())
