@@ -8,9 +8,7 @@ class magic:
         self.usr_name = user_name_input
         self.web = website
     
-    def main(self):
-        key()
-        main()
+    def search_passwords(self):
         inline = open('passwords.txt')
         inline = eval(inline.read())
         for keys,values in inline.items():
@@ -26,7 +24,7 @@ class magic:
         decryption = encrypt_decrypt(key1,key2)
         mail = decryption.decrypt_file(email)
         password = decryption.decrypt_file(pwd)
-        return mail,password
+        return str(mail),str(password)
 
 class File_transfer:
     def __init__(self):
@@ -38,13 +36,19 @@ class File_transfer:
             role = 'client' if time.time() % 30 < 15 else 'host'
             if role == 'host':
                 self.file.server_usr()
+                print('HOST')
             elif role == 'client':
                 self.file.client_usr()
                 user_input_cl = input()
+                print('CLIENT')
                 if user_input_cl == 'recv': run = False
             time.sleep(15)
         if user_input_cl == 'recv':
+<<<<<<< HEAD
             magic(input('Enter user name : '),input('Enter website : ')).main()
+=======
+            magic(input('Enter user name : '),input('Enter website : ')).search_passwords()
+>>>>>>> 00bcd119da4b038dc39de453b91e1c0da36c791c
         if input() == 'kill':
             run = False
         else:
@@ -54,4 +58,5 @@ class File_transfer:
         else:
             print('Program killed !')
 
-File_transfer().main_time()
+if __name__ == '__main__':
+    print(magic(input('Enter user name '),input('Enter platform')).search_passwords())
