@@ -32,17 +32,19 @@ class File_transfer:
     
     def main_time(self):
         run = True
+        start_time = time.time()
         while run:
-            role = 'host' if time.time() % 30 < 15 else 'client'
+            role = 'host' if (time.time() - start_time <= 15) else 'client'
             if role == 'host':
                 self.file.server_usr()
                 print('HOST')
+                time.sleep(15)
             elif role == 'client':
                 self.file.client_usr()
                 user_input_cl = input()
                 print('CLIENT')
+                time.sleep(15)
                 if user_input_cl == 'recv': run = False
-            time.sleep(15)
         if user_input_cl == 'recv':
             magic(input('Enter user name : '),input('Enter website : ')).search_passwords()
         if input() == 'kill':
@@ -55,4 +57,5 @@ class File_transfer:
             print('Program killed !')
 
 if __name__ == '__main__':
-    print(magic(input('Enter user name '),input('Enter platform')).search_passwords())
+    File_transfer().main_time()
+    # print(magic(input('Enter user name '),input('Enter platform')).search_passwords())

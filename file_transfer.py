@@ -2,7 +2,7 @@ import socket
 
 class file_Transfer:
     def __init__(self):
-        self.bind_ip = socket.gethostbyname(socket.gethostname())
+        self.bind_ip = '192.168.60.51'
         self.bind_port = 9999
         self.size = 4096
         self.format = 'utf-8'
