@@ -11,4 +11,4 @@ passwords.txt is a file where all the passwords are stored and key.key is a file
 We have also given users option to either generate a strong enough password or input their desired password in the password manager and given the user privacy while inputting the password for that we have used a module named getpass which hides the text whlie taking input.
 Unfortunately, due to the lack of time we were unable to create a good gui using tkinter/curses hence everything would be done on terminal only.
 Thanks.
-Project Done By:- Harsh Priteshkumar Mistry(2022200), Vikranth Udandarao(2022570), Armaan Singh(2022096)
+Project Done By:- Harsh Priteshkumar Mistry(2022200)
