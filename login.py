@@ -1,83 +1,74 @@
-import sqlite3
-import getpass
+from cryptography.fernet import Fernet
+import json
 
-conn = sqlite3.connect('UserDB.db')
-cursor = conn.cursor()
 
-class signup:
-    def __init__(self,emai_id,id,pwd,confirm_pwd):
-        self.mail_id = emai_id
-        self.user_name = id
-        self.pwd = pwd
-        self.confirm_pwd = confirm_pwd
-    
-    def signup(self):
-        cursor.execute('SELECT rowid FROM test WHERE EMAIL_ID = ?',(self.mail_id,))
-        res = cursor.fetchall()
-        if not(len(res)==0):
-            print('A user already exists with that email id')
-            user_input = input('Do you wish to sign up with different email id or login : ')
-            if user_input == 'login':
-                res,uname = login(input('Enter user name : '),getpass.getpass('Enter password : ')).Login()
-                return res,uname
-            elif user_input == 'Sign up':
-                res,uname = signup(input('Enter email id : '),input('Enter user name : '),getpass.getpass('Enter password : '),getpass.getpass('Confirm your password : ')).signup()
-                return res,uname
-        else:
-            cursor.execute('SELECT rowid FROM test WHERE USERNAME = ?',(self.user_name,))
-            res = cursor.fetchall()
-            if not(len(res) == 0):
-                print('User already exists with that username please enter different username')
-                res,uname = signup(input('Enter email id : '),input('Enter user name : '),getpass.getpass('Enter password : '),getpass.getpass('Confirm your password : ')).signup()
-                return res,uname
-            else:
-                if self.pwd == self.confirm_pwd:
-                    params = (self.mail_id,self.user_name,self.pwd,self.confirm_pwd)
-                    cursor.execute('INSERT INTO test (EMAIL_ID, USERNAME, PASSWORD, CONFIRM_PASSWORD) VALUES(?,?,?,?)', params);
-                    return 'You have signed up for this program',self.user_name
+class UserAuthentication:
+    def __init__(self, file_path, key_file):
+        self.file_path = file_path
+        self.key_file = key_file
+        self.key = self.load_or_generate_key()
+        self.users = self.load_users_from_json()
+
+    def load_or_generate_key(self) -> bytes:
+        try:
+            with open(self.key_file, 'rb') as file:
+                return file.read()
+        except FileNotFoundError:
+            key = Fernet.generate_key()
+            with open(self.key_file, 'wb') as file:
+                file.write(key)
+            return key
+
+    def load_users_from_json(self) -> dict:
+        try:
+            with open(self.file_path, 'r') as file:
+                return json.load(file)
+        except FileNotFoundError:
+            return {'users': []}
+
+    def save_users_to_json(self):
+        with open(self.file_path, 'w') as file:
+            json.dump(self.users, file, indent=2)
+
+    def register_user(self, username: str, password: str, email: str) -> bool:
+
+        for user in self.users['users']:
+            if user['username'] == username:
+                print("Username already exists. Please choose a different username.")
+                return False  # Returning False if the username already exists
+
+        fernet = Fernet(self.key)  # Setting up the Fernet object
+        hashed_password = fernet.encrypt(password.encode('utf-8')).decode('utf-8')  # Encrypting the password
+
+        new_user = {
+            'username': username,
+            'password': hashed_password,
+            'email': email,
+            'stored_passwords': [{}]
+        }  # Creating a new user object
+
+        self.users['users'].append(new_user)  # Adding the new user to the list of users
+        self.save_users_to_json()  # Saving the updated list of users to the JSON file
+        print("User registered successfully.")  # Printing a success message
+        return True
+
+    def authenticate_user(self, username: str, password: str) -> bool:
+        for user in self.users['users']:
+            if user['username'] == username:
+                fernet = Fernet(self.key)
+                hashed_password = user['password']
+                print(fernet.decrypt(hashed_password))
+                if bytes(password.encode('utf-8')) == fernet.decrypt(hashed_password):
+                    print("Authentication successful.")
+                    return True
                 else:
-                    print('Passwords dont match!')
-                    res,uname = signup(input('Enter email id : '),input('Enter user name : '),getpass.getpass('Enter password : '),getpass.getpass('Confirm your password : ')).signup()
-                    return res,uname
-        conn.commit()
-        conn.close()
-    
-class login:
-    def __init__(self,usr_name,pwd):
-        self.user_name = usr_name
-        self.pwd = pwd
-    
-    def Login(self):
-        cursor.execute('SELECT rowid FROM test WHERE USERNAME = ?',(self.user_name,))
-        res = cursor.fetchall()
-        if not(len(res)==0):
-            cursor.execute('SELECT rowid FROM test WHERE PASSWORD = ?',(self.pwd,))
-            res = cursor.fetchall()
-            if not(len(res)==0):
-                return 'Succesfully Logged In',self.user_name
-            else:
-                print('Username or password is incorrect')
-                res,uname = login(input('Enter user name : '),getpass.getpass('Enter password : ')).Login()
-                return res,uname
-        else:
-            cursor.execute('SELECT rowid FROM test WHERE PASSWORD = ?',(self.pwd,))
-            res = cursor.fetchall()
-            if not(len(res)==0):
-                cursor.execute('SELECT rowid FROM test WHERE USERNAME = ?',(self.user_name,))
-                res = cursor.fetchall()
-                if not(len(res)==0):
-                    return 'Succesfully Logged In',self.user_name
-                else:
-                    print('Username or password is incorrect')
-                    res,uname = login(input('Enter user name : '),getpass.getpass('Enter password : ')).Login()
-                    return res,uname
-            else:
-                print('User does not exist')
-                user_input = input('Do you wish to make new account or try to sign in again? ')
-                if user_input == 'login':
-                    res,uname = login(input('Enter user name : '),getpass.getpass('Enter password : ')).Login()
-                    return res,uname
-                elif user_input == 'sign up':
-                    res,uname = signup(input('Enter email id : '),input('Enter user name : '),getpass.getpass('Enter password : '),getpass.getpass('Confirm your password : ')).signup()
-                    return res,uname
-        conn.close()
+                    print("Incorrect password. Please try again.")
+                    return False
+
+        print("Username not found.")
+        return False
+
+
+# Test code
+
+# UserAuthentication('password.json', 'key.key').register_user("harsh", "123", "harsh@123")

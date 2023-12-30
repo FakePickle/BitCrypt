@@ -1,0 +1,4 @@
+cryptography==41.0.7
+getpass4==0.0.14.1
+sockets==1.0.0
+bcrypt==4.1.2
