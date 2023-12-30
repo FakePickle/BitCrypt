@@ -1,4 +1,3 @@
-
 from passwords import PasswordManager, generate_strong_password
 from getpass import getpass
 
