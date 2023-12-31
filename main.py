@@ -27,7 +27,7 @@ __________.__  __   __      __                  .___
         \/                \/        \/           \/    \/     \/
     ''' + Style.RESET_ALL) # Printing the logo
 
-    print(Fore.YELLOW + "Welcome to Bitwarden From WIsh Password Manager!\n") # Printing the welcome message
+    print(Fore.YELLOW + "Welcome to Bitwarden Password Manager!\n") # Printing the welcome message
 
 
 # Main function
