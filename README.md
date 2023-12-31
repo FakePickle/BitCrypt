@@ -30,10 +30,10 @@ Bitwarden Password Manager is a secure and lightweight command-line password man
     git clone https://github.com/FakePickle/Bitwarden.git
     ```
 
-2. Change the directory to main source file:
+2. Change the directory to the main source:
 
     ```bash
-    cd src\main.py
+    cd src
     ```
 
 2. Install the required dependencies:
