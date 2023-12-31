@@ -10,6 +10,9 @@ Bitwarden Password Manager is a simple command-line password manager written in 
 - Generating strong passwords
 - Searching for passwords
 
+<img width="1271" alt="bitwarden-1" src="https://github.com/FakePickle/Bitwarden_from_Wish/assets/122410275/ea305564-15ae-4ddf-85da-5a2a6030f095">
+<img width="1259" alt="bitwarden-2" src="https://github.com/FakePickle/Bitwarden_from_Wish/assets/122410275/f446d54f-ec28-464c-b810-a8caa338ba3d">
+
 ## Prerequisites
 
 - Python 3.x
