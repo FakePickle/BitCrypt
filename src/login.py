@@ -54,7 +54,7 @@ class UserAuthentication:
 
         self.users['users'].append(new_user)  # Adding the new user to the list of users
         self.save_users_to_json()  # Saving the updated list of users to the JSON file
-        print(f"Welcome {username} to the program.")  # Printing a success message
+        print(f"Welcome {username} to Bitwarden.")  # Printing a success message
         return True
 
     # Authenticating the user

@@ -92,7 +92,7 @@ def main():
                         break
 
         elif choice == '3':
-            print("Thank you for using this program. Hope you have a wonderful day ahead")
+            print("Thank you for using Biwarden. Hope you have a wonderful day ahead")
             clear_screen()
             break
 

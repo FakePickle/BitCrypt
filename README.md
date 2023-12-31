@@ -1,14 +1,16 @@
 # Bitwarden Password Manager
 
-Bitwarden Password Manager is a simple command-line password manager written in Python. It allows users to securely store, generate and manage their passwords.
+Bitwarden Password Manager is a secure and lightweight command-line password manager written in Python. It allows users to securely store, generate and manage their passwords.
 
 ## Features
 
-- User authentication
-- User registration
-- Adding passwords
-- Generating strong passwords
-- Searching for passwords
+- **User-Friendly**: Simple and intuitive command-line interface for easy navigation.
+- **Secure Authentication**: Protect your passwords with robust user authentication.
+- **Password Generation**: Generate strong and unique passwords effortlessly.
+- **Efficient Searching**: Quickly find and retrieve passwords when you need them.
+
+<img width="400" height="300" alt="bitwarden-1" src="https://github.com/FakePickle/Bitwarden_from_Wish/assets/122410275/ea305564-15ae-4ddf-85da-5a2a6030f095">
+<img width="400" height="300" alt="bitwarden-2" src="https://github.com/FakePickle/Bitwarden_from_Wish/assets/122410275/f446d54f-ec28-464c-b810-a8caa338ba3d">
 
 ## Prerequisites
 
@@ -52,11 +54,36 @@ Follow the on-screen instructions to navigate through the application. You can s
 
 ## File Structure
 
-- `main.py`: The main script to run the Bitwarden Password Manager.
-- `login.py`: Handles user authentication and registration.
-- `file_transfer.py`: Provides functionality for transferring files between the server and client.
-- `password.py`: Manages password-related functionality, including password generation.
-- Other files: Additional scripts and files necessary for the project.
+Bitwarden
+
+    ├── src
+    |    ├── main.py
+    |    ├── login.py
+    |    ├── file_transfer.py
+    |    ├── password.py
+    ├── data 
+    |    ├── password.json
+    |    ├── key.key
+    ├── requirements.txt
+    ├── LICENSE.md
+    ├── README.md
+
+- **`src`**: Contains the main source code files.
+    - `main.py`: The main script to run the Bitwarden Password Manager.
+    - `login.py`: Handles user authentication and registration.
+    - `file_transfer.py`: Provides functionality for transferring files between the server and client.
+    - `password.py`: Manages password-related functionality, including password generation.
+
+- **`data`**: Stores data files used by the application.
+    - `password.json`: JSON file for storing user data.
+    - `key.key`: Key file for encryption.
+
+- **`requirements.txt`**: Lists the required dependencies for the project.
+
+- **`LICENSE.md`**: The license file for the project.
+
+- **`README.md`**: The main README file with information about the project.
+
 
 ## Contributing
 
