@@ -16,7 +16,7 @@ def clear_screen():
 # Displaying the intro
 def display_intro():
     clear_screen()
-    colorama.init(autoreset=True) # Initializing colorama
+    colorama.init(autoreset=True)  # Initializing colorama
 
     print(Fore.CYAN + r'''
 __________.__  __   __      __                  .___             
@@ -25,16 +25,15 @@ __________.__  __   __      __                  .___
  |    |   \  ||  |  \        /  / __ \|  | \/ /_/ \  ___/|   |  \
  |______  /__||__|   \__/\  /  (____  /__|  \____ |\___  >___|  /
         \/                \/        \/           \/    \/     \/
-    ''' + Style.RESET_ALL) # Printing the logo
+    ''' + Style.RESET_ALL)  # Printing the logo
 
-    print(Fore.YELLOW + "Welcome to Bitwarden Password Manager!\n") # Printing the welcome message
+    print(Fore.YELLOW + "Welcome to Bitwarden Password Manager!\n")  # Printing the welcome message
 
 
 # Main function
 def main():
-
     display_intro()
-    user_auth = PasswordManager('password.json', 'key.key') # Creating a new PasswordManager object
+    user_auth = PasswordManager('../data/password.json', '../data/key.key')  # Creating a new PasswordManager object
 
     while True:
         print("-----------------------------------------------------")
@@ -60,39 +59,49 @@ def main():
                 print(f'\033[1mWelcome {username}.\0330')
                 while True:
                     print("-----------------------------------------------------")
-                    print("1. Add password\n2. Generate Password\n3. Search for a password\n4. Logout")
+                    print("1. Add password\n2. Search for a password\n3. Logout")
                     choice = input("Enter your choice: ")
 
                     if choice == '1':
-                        print("-----------------------------------------------------")
-                        website = input("Enter website: ")
-                        password = getpass("Enter password: ", "*")
-                        print("-----------------------------------------------------")
-                        user_auth.add_password(username, website, password)
 
-                    elif choice == '2':
-                        print("-----------------------------------------------------")
-                        website = input("Enter website: ")
-                        length_password = input("Enter the length for password(Default value 12): ")
-                        print("-----------------------------------------------------")
-                        if not length_password:
-                            user_auth.add_password(username, website, generate_strong_password())
-                        else:
-                            user_auth.add_password(username, website, generate_strong_password(int(length_password)))
+                        while True:
+                            print("-----------------------------------------------------")
+                            print("1. Add password manually\n2. Generate a strong password\n3. Go back")
+                            choice = input("Enter your choice: ")
 
-                    elif choice == '3':
+                            if choice == '1':  # Adding password manually
+                                print("-----------------------------------------------------")
+                                website = input("Enter website: ")
+                                password = getpass("Enter password: ", "*")
+                                print("-----------------------------------------------------")
+                                user_auth.add_password(username, website, password)
+                                break
+
+                            elif choice == '2':  # Generating a strong password
+                                print("-----------------------------------------------------")
+                                website = input("Enter website: ")
+                                length_password = input("Enter the length for password(Default value 12): ")
+                                print("-----------------------------------------------------")
+                                if not length_password:
+                                    user_auth.add_password(username, website, generate_strong_password())
+                                else:
+                                    user_auth.add_password(username, website,
+                                                           generate_strong_password(int(length_password)))
+                                break
+
+                    elif choice == '2':  # Searching for a password
                         print("-----------------------------------------------------")
                         website = input("Enter website: ")
                         print("-----------------------------------------------------")
                         user_auth.search_password(username, website)
 
-                    elif choice == '4':
+                    elif choice == '3':  # Logging out
                         print(f"Logged out of {username}.")
                         clear_screen()
                         break
 
-        elif choice == '3':
-            print("Thank you for using Biwarden. Hope you have a wonderful day ahead")
+        elif choice == '3':  # Exiting the program
+            print("Thank you for using BitWarden. Hope you have a wonderful day ahead")
             clear_screen()
             break
 
