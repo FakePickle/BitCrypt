@@ -106,3 +106,5 @@ This project is licensed under the [MIT License](LICENSE.md).
 [Harsh Mistry](https://github.com/FakePickle)
 \
 [Vikranth Udandarao](https://github.com/Vikranth3140)
+\
+[Harsh Mistry](https://github.com/aturtle4)
