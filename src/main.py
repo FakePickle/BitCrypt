@@ -19,15 +19,15 @@ def display_intro():
     colorama.init(autoreset=True)  # Initializing colorama
 
     print(Fore.CYAN + r'''
-__________.__  __   __      __                  .___             
-\______   \__|/  |_/  \    /  \_____ _______  __| _/____   ____  
- |    |  _/  \   __\   \/\/   /\__  \\_  __ \/ __ |/ __ \ /    \ 
- |    |   \  ||  |  \        /  / __ \|  | \/ /_/ \  ___/|   |  \
- |______  /__||__|   \__/\  /  (____  /__|  \____ |\___  >___|  /
-        \/                \/        \/           \/    \/     \/
+__________.__  __   _________                        __   
+\______   \__|/  |_ \_   ___ \_______ ___.__._______/  |_ 
+ |    |  _/  \   __\/    \  \/\_  __ <   |  |\____ \   __\
+ |    |   \  ||  |  \     \____|  | \/\___  ||  |_> >  |  
+ |______  /__||__|   \______  /|__|   / ____||   __/|__|  
+        \/                  \/        \/     |__|         
     ''' + Style.RESET_ALL)  # Printing the logo
 
-    print(Fore.YELLOW + "Welcome to Bitwarden Password Manager!\n")  # Printing the welcome message
+    print(Fore.YELLOW + "Welcome to BitCrypt Password Manager!\n")  # Printing the welcome message
 
 
 # Main function
@@ -101,7 +101,7 @@ def main():
                         break
 
         elif choice == '3':  # Exiting the program
-            print("Thank you for using BitWarden. Hope you have a wonderful day ahead")
+            print("Thank you for using BitCrypt. Hope you have a wonderful day ahead")
             clear_screen()
             break
 
