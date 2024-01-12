@@ -1,6 +1,6 @@
-# Bitwarden Password Manager
+# BiCrypt Password Manager
 
-Bitwarden Password Manager is a secure and lightweight command-line password manager written in Python. It allows users to securely store, generate and manage their passwords.
+BiCrypt Password Manager is a secure and lightweight command-line password manager written in Python. It allows users to securely store, generate and manage their passwords.
 
 ## Features
 
@@ -27,7 +27,7 @@ Bitwarden Password Manager is a secure and lightweight command-line password man
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/FakePickle/Bitwarden.git
+    git clone https://github.com/Vikranth3140/BitCrypt.git
     ```
 
 2. Change the directory to the main source:
