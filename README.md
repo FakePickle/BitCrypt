@@ -107,4 +107,4 @@ This project is licensed under the [MIT License](LICENSE.md).
 \
 [Vikranth Udandarao](https://github.com/Vikranth3140)
 \
-[Harsh Mistry](https://github.com/aturtle4)
+[Armaan Singh](https://github.com/aturtle4)
